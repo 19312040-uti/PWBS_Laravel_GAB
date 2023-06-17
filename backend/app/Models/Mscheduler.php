@@ -8,9 +8,26 @@ use DB;
 
 class Mscheduler extends Model
 {
-    function viewSchedule($user_id) {
-        $user_id = base64_decode($user_id);
+    //ambil semua schedule
+    function viewSchedule() {
+        $query = DB::table('tbl_schedule')
+            ->join('tbl_user', 'tbl_schedule.Owner_ID', "=", "tbl_user.ID")
+            ->select(
+                "tbl_user.Username",
+                "Title",
+                "Description",
+                "Due_Time",
+                "Created_at"
+            )
+            ->orderBy("Owner_ID")
+            ->get();
+    
+        return $query;
+    }
 
+    //ambil schedule user
+    //pastikan user_id dalam bentuk BASE64
+    function getSchedule($user_id) {
         $query = DB::table('tbl_schedule')
             ->select(
                 "Title",
@@ -25,19 +42,31 @@ class Mscheduler extends Model
         return $query;
     }
 
-    function getSchedule() {
-        
+    function createSchedule($user_id, $title, $description, $due_time) {
+        DB::table("tb_schedule")
+            ->insert([
+                "Owner_ID" => $user_id,
+                "Title" => $title,
+                "Description" => $description,
+                "Due_Time" => $due_time
+            ]);
     }
 
-    function createSchedule() {
-        
+    //fungsi update schedule pengguna
+    //pastikan schedule_id berbentuk BASE64
+    function updateSchedule($schedule_id, $title, $description, $due_time) {
+        DB::table("tbl_schedule")
+            ->where(DB::raw("TO_BASE64(Schedule_ID)"), '=', $schedule_id)
+            ->update([
+                "Title" => $title,
+                "Description" => $description,
+                "Due_Time" => $due_time
+            ]);
     }
 
-    function updateSchedule() {
-        
-    }
-
-    function deleteSchedule() {
-        
+    function deleteSchedule($schedule_id) {
+        DB::table("tbl_schedule")
+            ->where(DB::raw("TO_BASE64(Schedule_ID)"), '=', $schedule_id)
+            ->delete();
     }
 }
