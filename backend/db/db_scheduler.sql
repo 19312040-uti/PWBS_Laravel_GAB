@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 17, 2023 at 07:07 PM
+-- Generation Time: Jun 18, 2023 at 12:50 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -26,44 +26,16 @@ USE `db_scheduler`;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_admin`
---
-
-CREATE TABLE `tbl_admin` (
-  `Admin_ID` int(3) NOT NULL,
-  `Name` varchar(42) NOT NULL,
-  `Username` varchar(16) NOT NULL,
-  `Password` varchar(100) NOT NULL,
-  `Created_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `tbl_schedule`
 --
 
 CREATE TABLE `tbl_schedule` (
   `Schedule_ID` int(9) NOT NULL,
-  `Owner_ID` int(5) NOT NULL,
   `Title` text NOT NULL,
   `Description` text DEFAULT NULL,
   `Due_Time` timestamp NULL DEFAULT NULL,
-  `Created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tbl_user`
---
-
-CREATE TABLE `tbl_user` (
-  `ID` int(5) NOT NULL,
-  `Name` varchar(42) NOT NULL,
-  `Username` varchar(16) NOT NULL,
-  `Password` varchar(100) NOT NULL,
-  `Created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `Created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `Finished` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -71,56 +43,20 @@ CREATE TABLE `tbl_user` (
 --
 
 --
--- Indexes for table `tbl_admin`
---
-ALTER TABLE `tbl_admin`
-  ADD PRIMARY KEY (`Admin_ID`);
-
---
 -- Indexes for table `tbl_schedule`
 --
 ALTER TABLE `tbl_schedule`
-  ADD PRIMARY KEY (`Schedule_ID`),
-  ADD KEY `Schedule_to_Owner_Constraint` (`Owner_ID`);
-
---
--- Indexes for table `tbl_user`
---
-ALTER TABLE `tbl_user`
-  ADD PRIMARY KEY (`ID`),
-  ADD KEY `ID` (`ID`);
+  ADD PRIMARY KEY (`Schedule_ID`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `tbl_admin`
---
-ALTER TABLE `tbl_admin`
-  MODIFY `Admin_ID` int(3) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `tbl_schedule`
 --
 ALTER TABLE `tbl_schedule`
   MODIFY `Schedule_ID` int(9) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `tbl_user`
---
-ALTER TABLE `tbl_user`
-  MODIFY `ID` int(5) NOT NULL AUTO_INCREMENT;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `tbl_schedule`
---
-ALTER TABLE `tbl_schedule`
-  ADD CONSTRAINT `Schedule_to_Owner_Constraint` FOREIGN KEY (`Owner_ID`) REFERENCES `tbl_user` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

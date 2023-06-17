@@ -11,9 +11,21 @@ class Scheduler extends Controller
 
     function __construct() {
         $this->model = new Mscheduler();
+
+        //cek apakah ada schedule yang sudah melewati batas waktu
     }
 
     //Tampilkan semua data scheduler
+    function viewAsUser() {
+        //ambil fungsi viewSchedule (Mscheduler)
+        $data = $this->model->viewScheduleAsUser();
+
+        //tampilkan
+        return response([
+            "Schedule" => $data
+        ], http_response_code());
+    }
+
     function view() {
         //ambil fungsi viewSchedule (Mscheduler)
         $data = $this->model->viewSchedule();
@@ -24,11 +36,10 @@ class Scheduler extends Controller
         ], http_response_code());
     }
 
-    //Ambil data tertentu
-    //Pastikan user_id berbentuk BASE64
-    function get($user_id) {
+
+    function get($schedule_id) {
         //ambil fungsi getSchedule (Mscheduler)
-        $data = $this->model->getUserSchedule($user_id);
+        $data = $this->model->getSchedule($schedule_id);
 
         //tampilkan
         return response([
@@ -93,6 +104,41 @@ class Scheduler extends Controller
         }
         
     }
+
+    //Jadikan schedule sebagai "selesai" (dihilangkan untuk user)
+    function finish($schedule_id) {
+        //coba ganti status schedule
+        try {
+            $data = $this->model->setScheduleStatus($schedule_id, 1);
+
+            //Jika pergantian status berhasil
+            $status = 1;
+            $pesan = "Schedule selesai";
+        } catch (Exception $e) {
+
+            //Jika pergantian status gagal
+            $status = 1;
+            $pesan = "Status schedule gagal diganti";
+        }
+    }
+
+    //Jadikan schedule sebagai "belum selesai" (dihilangkan untuk user)
+    function unfinished($schedule_id) {
+        //coba ganti status schedule
+        try {
+            $data = $this->model->setScheduleStatus($schedule_id, 0);
+
+            //Jika pergantian status berhasil
+            $status = 1;
+            $pesan = "Schedule dikembalikan";
+        } catch (Exception $e) {
+
+            //Jika pergantian status gagal
+            $status = 1;
+            $pesan = "Status schedule gagal diganti";
+        }
+    }
+
 
     function delete($schedule_id) {
         //Cek jika schedule masih ada
