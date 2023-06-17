@@ -9,6 +9,8 @@ use DB;
 class Mscheduler extends Model
 {
     function viewSchedule($user_id) {
+        $user_id = base64_decode($user_id);
+
         $query = DB::table('tbl_schedule')
             ->select(
                 "Title",
@@ -16,7 +18,7 @@ class Mscheduler extends Model
                 "Due_Time",
                 "Created_at"
             )
-            ->where("Owner_ID", "=", $user_id)
+            ->where(DB::raw("TO_BASE64(Owner_ID)"), "=", $user_id)
             ->orderBy("Created_at")
             ->get();
     
