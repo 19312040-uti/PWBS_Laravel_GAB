@@ -26,3 +26,5 @@ Rencana frontend:
         + Schedule yang selesai memiliki tombol "tidak selesai" (seperti tombol X)
             - Jika ditekan, panggil API unfinish, dan schedule akan bisa diakses kembali oleh user
 
+Kalau frontend udah selesai, bisa:
+- Minta pull request ke repoku, cari google caranya
