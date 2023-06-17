@@ -23,6 +23,10 @@ class Mscheduler extends Model
         return $query;
     }
 
+    function getSchedule() {
+        
+    }
+
     function createSchedule() {
         
     }

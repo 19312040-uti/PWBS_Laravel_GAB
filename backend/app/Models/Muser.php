@@ -7,5 +7,22 @@ use Illuminate\Database\Eloquent\Model;
 
 class Muser extends Model
 {
-    use HasFactory;
+    function viewUsername() {
+        
+    }
+
+    function getUsername() {
+        
+    }
+    function addUsername() {
+        
+    }
+    function updateUsername() {
+        
+    }
+
+    function deleteUsername() {
+        
+    }
+
 }
