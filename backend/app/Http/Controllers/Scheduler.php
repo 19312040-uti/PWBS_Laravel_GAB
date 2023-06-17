@@ -102,7 +102,7 @@ class Scheduler extends Controller
         if (count($data) != 0) {
             //lakukan penghapusan data
             //ambil fungsi deleteSchedule (Mscheduler)
-            $data = $this->model->deleteSchedule($schedule_id);
+            $this->model->deleteSchedule($schedule_id);
 
             //Jika penghapusan berhasil
             $status = 1;

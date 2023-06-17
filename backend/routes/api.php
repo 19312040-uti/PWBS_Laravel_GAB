@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin;
 use App\Http\Controllers\Scheduler;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -38,5 +39,3 @@ Route::put('/schedules/update', [Scheduler::class, 'update']);
 //DELETE
 //route untuk hapus data
 Route::delete('/schedules/delete/{$schedule_id}', [Scheduler::class, 'delete']);
-
-//USER API
