@@ -1,5 +1,5 @@
 cara pakai repo ini:
-1. install git dulu, di laptop
+1. install git dulu, di laptop (https://git-scm.com/download/win)
 2. install ekstensi github sama git di vscode
 
 kalo udah:
