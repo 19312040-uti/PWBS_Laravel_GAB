@@ -20,7 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 //route untuk mengambil schedule user
-Route::get('/schedules/{user_id}', [scheduler::class]);
+Route::get('/schedules/view/{$user_id}', [scheduler::class]);
 
 //route untuk mengambil semua schedule
-Route::get('/schedules/all', [scheduler::class]);
+Route::get('/schedules/view/all', [scheduler::class]);
