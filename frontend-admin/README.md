@@ -1,1 +1,0 @@
-<h1 align="center">API URL DI .ENV.EXAMPLE</p>
